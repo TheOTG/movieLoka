@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Seat.associate = function(models) {
     // associations can be defined here
-    Seat.belongsTo(models.Ticket)
   };
   return Seat;
 };

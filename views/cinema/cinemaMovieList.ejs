@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/cinema">back</a>
+    <center>
+        <h2><a href="<%=cinemaId%>/addScreening">add screening</a></h2>
+        <h1>Now Showing</h1>
+        <div style="width: 830px;">
+            <%if(data) {%>
+                <%data.Movies.forEach(movie => {%>
+                    <a href="<%=cinemaId%>/movie/<%=movie.id%>"><img src="<%=movie.image%>" width="200" height="250"></a>
+                <%})%>
+            <%}%>
+        </div>
+    </center>
+</body>
+</html>

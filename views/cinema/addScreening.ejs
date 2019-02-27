@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/cinema/<%=cinema.id%>">back</a>
+    <center>
+        <h1>Add Screening <%=cinema.name%></h1>
+        <%=error%>
+        <form method="POST">
+            <select name="movieName">
+                <%movies.forEach(movie => {%>
+                    <option><%=movie.id%>. <%=movie.name%></option>
+                <%})%>
+            </select>
+            <br><br>
+            Time:
+            <input type="time" name="time">
+            <br><br>
+            Seat number:
+            <input type="number" name="seatNumber">
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </center>
+</body>
+</html>
