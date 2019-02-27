@@ -14,8 +14,12 @@ module.exports = {
     */
    return queryInterface.bulkInsert('Cinemas', [{
      name: 'CeGeVe',
+     createdAt: new Date(),
+     updatedAt: new Date()
    }, {
-     name: 'eXeXI'
+     name: 'eXeXI',
+     createdAt: new Date(),
+     updatedAt: new Date()
    }])
   },
 
