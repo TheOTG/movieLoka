@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/cinema/<%=data.CinemaId%>/movie/<%=data.MovieId%>">back</a>
+    <center>
+        <form method="POST">
+            <table border="1" width="200" cellpadding="10">
+                <thead>
+                    <tr>
+                        <td colspan="10" align="center">
+                            SCREEN
+                        </td>
+                    </tr>
+                </thead>
+                <tr>
+                    <td align="center">
+                        <%data.Seats.forEach(seat => {%>
+                            <input type="checkbox" name="SeatId" value="<%=seat.id%>" <%=seat.status === 'empty' ? '' : 'checked disabled'%>>
+                            <input type="hidden" name="status" value="<%=seat.status%>">
+                            <input type="hidden" name="seatId" value="<%=seat.id%>">
+                        <%})%>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <input type="submit" value="Pick Seats">
+        </form>
+    </center>
+</body>
+</html>
