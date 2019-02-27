@@ -1,0 +1,26 @@
+{
+  "name": "movieLoka",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheOTG/movieLoka.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheOTG/movieLoka/issues"
+  },
+  "homepage": "https://github.com/TheOTG/movieLoka#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "pg": "^7.8.1",
+    "sequelize": "^4.42.0"
+  }
+}
