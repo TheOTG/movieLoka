@@ -9,12 +9,13 @@
 <body>
     <a href="/cinema">back</a>
     <center>
-        <h2><a href="<%=cinemaId%>/addScreening">add screening</a></h2>
+        <img src="<%=data.logo%>" width="150" height="70">
+        <h2><a href="<%=data.id%>/addScreening">add screening</a></h2>
         <h1>Now Showing</h1>
         <div style="width: 830px;">
             <%if(data) {%>
                 <%data.Movies.forEach(movie => {%>
-                    <a href="<%=cinemaId%>/movie/<%=movie.id%>"><img src="<%=movie.image%>" width="200" height="250"></a>
+                    <a href="<%=data.id%>/movie/<%=movie.id%>"><img src="<%=movie.image%>" width="200" height="250"></a>
                 <%})%>
             <%}%>
         </div>
