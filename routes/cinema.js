@@ -80,8 +80,8 @@ router.get('/:cinemaId', (req, res) => {
         ]
     })
     .then(data => {
+        // res.send(data)
         res.render('cinema/cinemaMovieList', {
-            cinemaId: params.cinemaId,
             data
         })
     })
