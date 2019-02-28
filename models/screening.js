@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     MovieId: DataTypes.INTEGER,
     CinemaId: DataTypes.INTEGER,
-    time: DataTypes.STRING,
+    time: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     totalSeats: {
       type: DataTypes.INTEGER,
       validate: {

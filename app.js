@@ -9,6 +9,8 @@ var sessionMiddleware = session({
     }
 })
 
+app.locals.seatRow = require('./helpers/convertSeatNum')
+
 app.set('view engine', 'ejs')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

@@ -14,7 +14,7 @@
        <li> <%= movie.synopsis %></li>
        <li> <%= movie.trailer %></li>
        <li> <%= movie.image %></li>
-       <li> <%= movie.rating %></li>
+       <li> <%= movie.rating === 0 ? 'N/A' : movie.rating%></li>
        <li> <%= movie.runtime %></li>
        <li> <%= movie.genre %></li>
        <li> <%= movie.release %></li>

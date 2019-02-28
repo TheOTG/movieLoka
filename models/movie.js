@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: (movie, options) => {
         movie.trailer = 'https://www.youtube.com/embed/' + movie.trailer
+        if(movie.rating === 'N/A') {
+          movie.rating = 0
+        }
       }
     }
   });

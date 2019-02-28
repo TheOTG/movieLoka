@@ -126,12 +126,19 @@ router.get('/:cinemaId/addScreening', (req, res) => {
     })
     .then(data => {
         // res.send(data)
+        let seats = []
         for(let i = 0; i < data.totalSeats; i++) {
-            Model.Seat.create({
-                ScreeningId: data.id,
-                status: 'empty'
-            })
+            let obj = {}
+            obj.ScreeningId = data.id
+            obj.status = 'empty'
+            obj.seatNum = i + 1
+            obj.CinemaId = data.CinemaId
+            seats.push(obj)
         }
+        console.log(seats)
+        return Model.Seat.bulkCreate(seats)
+    })
+    .then(() => {
         res.redirect(`/cinema/${params.cinemaId}`)
     })
     .catch(err => {
@@ -199,33 +206,37 @@ router.get('/:cinemaId/movie/:movieId/bookSeat/:screeningId', (req, res) => {
         }
     })
     .then(() => {
-        let seats = []
+        let tickets = []
         body.SeatId.forEach(id => {
             let obj = {}
             obj.SeatId = id
             obj.ScreeningId = params.screeningId
             obj.CinemaId = params.cinemaId
             obj.MovieId = params.movieId
-            seats.push(obj)
+            tickets.push(obj)
         })
-        return Model.Ticket.bulkCreate(seats)
+        return Model.Ticket.bulkCreate(tickets)
     })
     .then(() => {
-        return Promise.all([Model.Ticket.findAll({
-            where: {
-                SeatId: {
-                    [Op.in]: body.SeatId
+        return Promise.all([
+            Model.Cinema.findByPk(params.cinemaId),
+            Model.Movie.findByPk(params.movieId),
+            Model.Screening.findByPk(params.screeningId),
+            Model.Seat.findAll({
+                where: {
+                    id: {
+                        [Op.in]: body.SeatId
+                    }
                 }
-            }
-        }), Model.Cinema.findByPk(params.cinemaId),
-            Model.Movie.findByPk(params.movieId)])
+            })])
     })
     .then(data => {
         // res.send(data)
         res.render('cinema/showTicket', {
-            tickets: data[0],
-            cinema: data[1],
-            movie: data[2]
+            cinema: data[0],
+            movie: data[1],
+            screening: data[2],
+            seats: data[3]
         })
     })
     .catch(err => {
@@ -262,9 +273,14 @@ router.get('/:cinemaId/deleteAllScreenings', (req, res) => {
             CinemaId: params.cinemaId
         },
         truncate: true
+    }),
+    Model.Seat.destroy({
+        where: {
+            CinemaId: params.cinemaId
+        }
     })])
     .then(() => {
-        res.redirect(`/cinema/${params.cinemaId}`)
+        res.redirect('back')
     })
     .catch(err => {
         req.session.error = err.message
