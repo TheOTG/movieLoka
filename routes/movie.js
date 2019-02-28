@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Movie = require('../models').Movie
+const Cinema = require('../models').Cinema
 
 
 router.get('/',(req,res)=>{
@@ -17,12 +18,13 @@ router.get('/',(req,res)=>{
     })      
 })
 
+
 router.get('/delete/:id',(req,res)=>{
     // res.json(req.params.id)
     
     Movie.destroy({where:{id : req.params.id}})
     .then(()=>{
-        res.redirect('/list')
+        res.redirect('/movie')
         
     })
 })
@@ -33,7 +35,7 @@ router.get('/add',(req,res)=>{
 router.post('/add',(req,res)=>{
     Movie.create({
         name: req.body.name,
-        reting : req.body.rating,
+        rating : req.body.rating,
         trailer : req.body.trailer,
         image: req.body.image,
         synopsis : req.body.synopsis
@@ -70,6 +72,33 @@ router.post('/update/:id',(req,res)=>{
    
     .then((data)=>{
         res.redirect('/movie')
+    })
+    .catch((err)=>{
+        res.send(err)
+    })
+})
+
+router.get('/detail/:id',(req,res)=>{
+    Movie.findOne({
+        where : {
+            id : req.params.id
+
+            
+        },
+        include : [
+            {
+                model : Cinema
+            }
+        ]
+        
+        
+    })
+    .then((data)=>{
+        res.render('movie/detail',{
+            movie : data
+
+        })
+        // res.json(data)
     })
     .catch((err)=>{
         res.send(err)
