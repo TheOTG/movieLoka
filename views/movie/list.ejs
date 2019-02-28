@@ -7,6 +7,7 @@
     <title>Daftar Movie</title>
 </head>
 <body>
+    <%if(adminStatus === true) {%>
         <%include ../../partials/login/login.ejs%>
     <a href="/">back</a>
     <center>
@@ -18,7 +19,10 @@
                     <td>id</td>
                     <td>Name</td>
                     <td>Image</td>
-                    <td>Options</td> 
+                    <td>Now Showing At</td>
+                    <%if(adminStatus === true) {%>
+                        <td>Options</td> 
+                    <%}%>
                 </tr>                
                 <% for(key of movie){ %>
                 <tr>
@@ -26,9 +30,17 @@
                     <td> <%= key.title %></td>       
                     <td> <a href ="/movie/detail/<%= key.id %>"><img src="<%= key.image %>" height="70px"></a> </td>
                     <td>
-                        <a href ="/movie/detail/<%= key.id %>">Detail </a>
+                        <%if(key.Cinemas.length === 0) {%>
+                            Not Available
+                        <%} else {%>
+                            <%key.Cinemas.forEach(cinema => {%>
+                                <%=cinema.name%><br>
+                            <%})%>
+                        <%}%>
+                    </td>
+                    <td>
                     <%if(adminStatus === true) {%>
-                    | <a href="/movie/delete/<%= key.id %>" onclick="return confirm('delete this movie?')" >delete</a>
+                    <a href="/movie/delete/<%= key.id %>" onclick="return confirm('delete this movie?')" >delete</a>
                     <%}%>
                     </td>
                                        
@@ -39,6 +51,6 @@
             </tbody>
         </table>
 
-    
+    <%}%>
 </body>
 </html>

@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const session = require('express-session')
+const port = process.env.PORT || 3000
 
 var sessionMiddleware = session({
     secret: 'keyboard cat',
@@ -23,8 +24,10 @@ app.use((req, res, next) => {
     }
     if(!req.session.isLogin) {
         res.locals.loginStatus = false
+        res.locals.user = null
     } else {
         res.locals.loginStatus = req.session.isLogin
+        res.locals.user = req.session.user
     }
     if(!req.session.error) {
         res.locals.error = null
@@ -32,7 +35,6 @@ app.use((req, res, next) => {
         res.locals.error = req.session.error
         req.session.error = null
     }
-    
     next()
 })
 app.use('/cinema', require('./routes/cinema'))
@@ -43,4 +45,4 @@ app.get('/', (req, res) => {
     res.render('index')
 })
 
-app.listen(3000)
+app.listen(port)

@@ -10,10 +10,12 @@ router.get('/',(req,res)=>{
     Movie.findAll({
         order: [
             ['id', 'ASC']
+        ],
+        include: [
+            { model: Cinema }
         ]
     })
     .then(data=>{
-        // res.json(data)
 
         res.render('./movie/list',{
             movie : data
@@ -81,34 +83,5 @@ router.get('/delete/:id',(req,res)=>{
         
     })
 })
-
-router.get('/detail/:id',(req,res)=>{
-    Movie.findOne({
-        where : {
-            id : req.params.id
-
-            
-        },
-        include : [
-            {
-                model : Cinema
-            }
-        ]
-        
-        
-    })
-    .then((data)=>{
-        res.render('movie/detail',{
-            movie : data
-
-        })
-        // res.json(data)
-    })
-    .catch((err)=>{
-        req.session.error = err.message
-        res.redirect('back')
-    })
-})
-
 
 module.exports = router

@@ -34,6 +34,7 @@ router.post('/login', (req, res) => {
             req.session.error = null
             req.session.isLogin = true
             req.session.isAdmin = data.isAdmin === true ? true : false
+            req.session.user = data.username
         }
         res.redirect('back')
     })
@@ -46,6 +47,7 @@ router.post('/login', (req, res) => {
 router.get('/logout', (req, res) => {
     req.session.isLogin = false
     req.session.isAdmin = false
+    req.session.user = null
     res.redirect('back')
 })
 
