@@ -28,6 +28,7 @@ app.use((req, res, next) => {
         res.locals.error = null
     } else {
         res.locals.error = req.session.error
+        req.session.error = null
     }
     
     next()
