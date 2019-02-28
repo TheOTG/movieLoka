@@ -5,7 +5,6 @@ router.get('/register', (req, res) => {
     res.render('user/register')
 }).post('/register', (req, res) => {
     const { body } = req
-    res.redirect('/')
     Model.User.create({
         username: body.username,
         password: body.password,
