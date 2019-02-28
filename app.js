@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const session = require('express-session')
+const port = process.env.PORT || 3000
 
 var sessionMiddleware = session({
     secret: 'keyboard cat',
@@ -43,4 +44,4 @@ app.get('/', (req, res) => {
     res.render('index')
 })
 
-app.listen(3000)
+app.listen(port)
