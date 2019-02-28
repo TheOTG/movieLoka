@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     MovieId: DataTypes.INTEGER,
     CinemaId: DataTypes.INTEGER,
     time: DataTypes.STRING,
-    seatNumber: {
+    totalSeats: {
       type: DataTypes.INTEGER,
       validate: {
         min: {

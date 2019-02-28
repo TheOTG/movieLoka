@@ -8,13 +8,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      title: {
         type: Sequelize.STRING
       },
       rating: {
         type: Sequelize.REAL
       },
+      release: {
+        type: Sequelize.STRING
+      },
       trailer: {
+        type: Sequelize.STRING
+      },
+      runtime: {
+        type: Sequelize.STRING
+      },
+      genre: {
         type: Sequelize.STRING
       },
       createdAt: {

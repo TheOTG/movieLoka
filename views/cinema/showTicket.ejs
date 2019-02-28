@@ -8,18 +8,10 @@
 </head>
 <body>
         <%include ../../partials/login/login.ejs%>
-    <a href="/cinema">back</a>
     <center>
-        <h2>Add Cinema</h2>
-        <form method="POST">
-            Name:<br>
-            <input type="text" name="name">
-            <br><br>
-            Logo URL:<br>
-            <input type="logo" name="logo">
-            <br><br>
-            <input type="submit">
-        </form>
+        <%tickets.forEach(ticket => {%>
+            <%=ticket%>
+        <%})%>
     </center>
 </body>
 </html>

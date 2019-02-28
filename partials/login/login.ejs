@@ -1,0 +1,13 @@
+<%=error%>
+<%if(loginStatus === false) {%>
+    <form action="/user/login" method="POST">
+        username:
+        <input type="text" name="username">
+        password:
+        <input type="password" name="password">
+        <input type="submit" value="Login">
+        <a href="/user/register">Register</a>
+    </form>
+<%} else {%>
+    <a href="/user/logout">Logout</a>
+<%}%>

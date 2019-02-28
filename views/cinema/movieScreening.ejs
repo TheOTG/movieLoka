@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+        <%include ../../partials/login/login.ejs%>
     <a href="/cinema/<%=screenings[0].CinemaId%>">back</a>
     <br>
         
@@ -25,7 +26,7 @@
             <tr>
                 <td align="left">
                     <div style="width: 800px">
-                        <h2><%=movie.name%></h2>
+                        <h2><%=movie.title%></h2>
                         Rating: <%=movie.rating%>
                         <br><br>
                         <%=movie.synopsis%>

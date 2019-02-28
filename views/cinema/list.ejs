@@ -7,14 +7,19 @@
     <title>Document</title>
 </head>
 <body>
+        <%include ../../partials/login/login.ejs%>
     <a href="/">back</a>
     <center>
+        <%if(adminStatus === true) {%>
         <h2><a href="/cinema/add">add cinema</a></h2>
+        <%}%>
         <table cellpadding="5" border="1">
             <thead>
                 <td>Cinema name</td>
                 <td>Click logo to see movies!</td>
+                <%if(adminStatus === true) {%>
                 <td>Options</td>
+                <%}%>
             </thead>
             <%cinemas.forEach(cinema => {%>
                 <tr align="center">
@@ -25,11 +30,13 @@
                         <a href="/cinema/<%=cinema.id%>"><img src="<%=cinema.logo%>" width="100" height="50"></a>
                         <br>
                     </td>
+                    <%if(adminStatus === true) {%>
                     <td>
                         <a href="/cinema/<%=cinema.id%>/edit">Edit</a>
                         |
                         <a href="/cinema/<%=cinema.id%>/delete" onclick="return confirm('delete this cinema?')">Delete</a>
                     </td>
+                    <%}%>
                 </tr>
             <%})%>
         </table>

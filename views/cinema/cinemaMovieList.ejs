@@ -7,10 +7,19 @@
     <title>Document</title>
 </head>
 <body>
+        <%include ../../partials/login/login.ejs%>
     <a href="/cinema">back</a>
+    <br>
+    <%if(adminStatus === true) {%>
+        <a href="/cinema/<%=data.id%>/deleteAllScreenings" onclick="return confirm('delete this movie?')">delete all now showing</a>
+    <%}%>
+    
     <center>
         <img src="<%=data.logo%>" width="150" height="70">
-        <h2><a href="<%=data.id%>/addScreening">add screening</a></h2>
+        <%if(adminStatus === true) {%>
+            <h2><a href="<%=data.id%>/addScreening">add screening</a></h2>
+        <%}%>
+        
         <h1>Now Showing</h1>
         <div style="width: 830px;">
             <%if(data) {%>
