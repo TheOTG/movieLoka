@@ -9,8 +9,13 @@
 <body>
         <%include ../../partials/login/login.ejs%>
     <center>
-        <%tickets.forEach(ticket => {%>
-            <%=ticket%>
+        <%seats.forEach(seat => {%>
+            Ticket<br>
+            <%=movie.title%><br>
+            <%=cinema.name%><br>
+            <%=screening.time%><br>
+            <%=seatRow(seat.seatNum)%><br>
+            <br>
         <%})%>
     </center>
 </body>
