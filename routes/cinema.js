@@ -172,7 +172,7 @@ router.get('/:cinemaId/movie/:movieId', (req, res) => {
 // booking seats
 router.get('/:cinemaId/movie/:movieId/bookSeat/:screeningId', (req, res) => {
     const { params } = req
-    Model.Screening.findOne({
+    Promise.all([Model.Screening.findOne({
         where: {
             id: params.screeningId
         },
@@ -182,11 +182,12 @@ router.get('/:cinemaId/movie/:movieId/bookSeat/:screeningId', (req, res) => {
         order: [
             [Model.Seat, 'id', 'ASC']
         ]
-    })
+    }), Model.Movie.findByPk(params.movieId)])
     .then(data => {
         // res.send(data)
         res.render('cinema/bookSeat', {
-            data
+            screenings: data[0],
+            movie: data[1]
         })
     })
     .catch(err => {
