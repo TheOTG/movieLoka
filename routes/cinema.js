@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const Model = require('../models')
+const Op = require('sequelize').Op
 
 // cinema list
 router.get('/', (req, res) => {
+    console.log(req.session)
     Model.Cinema.findAll({
         order: [
             ['id', 'ASC']
@@ -14,7 +16,8 @@ router.get('/', (req, res) => {
         })
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })
 })
 
@@ -34,7 +37,8 @@ router.get('/add', (req, res) => {
         res.redirect('/cinema')
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })
 })
 
@@ -48,7 +52,8 @@ router.get('/:cinemaId/edit', (req, res) => {
         })
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })
 }).post('/:cinemaId/edit', (req, res) => {
     const { params, body } = req
@@ -64,7 +69,8 @@ router.get('/:cinemaId/edit', (req, res) => {
         res.redirect(`/cinema`)
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })
 })
 
@@ -86,7 +92,8 @@ router.get('/:cinemaId', (req, res) => {
         })
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })
 })
 
@@ -105,19 +112,21 @@ router.get('/:cinemaId/addScreening', (req, res) => {
         })
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })  
 }).post('/:cinemaId/addScreening', (req, res) => {
     const { params, body } = req
+    // res.send(body)
     Model.Screening.create({
         MovieId: body.movieName[0],
         time: body.time,
         CinemaId: params.cinemaId,
-        seatNumber: body.seatNumber
+        totalSeats: body.totalSeats
     })
     .then(data => {
         // res.send(data)
-        for(let i = 0; i < data.seatNumber; i++) {
+        for(let i = 0; i < data.totalSeats; i++) {
             Model.Seat.create({
                 ScreeningId: data.id,
                 status: 'empty'
@@ -126,7 +135,8 @@ router.get('/:cinemaId/addScreening', (req, res) => {
         res.redirect(`/cinema/${params.cinemaId}`)
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })
 })
 
@@ -147,7 +157,8 @@ router.get('/:cinemaId/movie/:movieId', (req, res) => {
         })
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })
 })
 
@@ -172,31 +183,55 @@ router.get('/:cinemaId/movie/:movieId/bookSeat/:screeningId', (req, res) => {
         })
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
     })
 }).post('/:cinemaId/movie/:movieId/bookSeat/:screeningId', (req, res) => {
     const { params, body } = req
-    body.SeatId.forEach(seatId => {
-        Model.Seat.update({
-            status: 'booked'
-        }, {
-            where: {
-                id: seatId
+
+    Model.Seat.update({
+        status: 'booked'
+    }, {
+        where: {
+            id: {
+                [Op.in]: body.SeatId
             }
+        }
+    })
+    .then(() => {
+        let seats = []
+        body.SeatId.forEach(id => {
+            let obj = {}
+            obj.SeatId = id
+            obj.ScreeningId = params.screeningId
+            obj.CinemaId = params.cinemaId
+            obj.MovieId = params.movieId
+            seats.push(obj)
         })
-        .then(() => {
-            Model.Ticket.create({
-                SeatId: seatId,
-                ScreeningId: params.screeningId,
-                CinemaId: params.cinemaId,
-                MovieId: params.movieId
-            })
-        })
-        .catch(err => {
-            res.send(err.message)
+        return Model.Ticket.bulkCreate(seats)
+    })
+    .then(() => {
+        return Promise.all([Model.Ticket.findAll({
+            where: {
+                SeatId: {
+                    [Op.in]: body.SeatId
+                }
+            }
+        }), Model.Cinema.findByPk(params.cinemaId),
+            Model.Movie.findByPk(params.movieId)])
+    })
+    .then(data => {
+        // res.send(data)
+        res.render('cinema/showTicket', {
+            tickets: data[0],
+            cinema: data[1],
+            movie: data[2]
         })
     })
-    res.redirect(`/cinema/${params.cinemaId}/movie/${params.movieId}`)
+    .catch(err => {
+        req.session.error = err.message
+        res.redirect('back')
+    })
 })
 
 // delete cinema
@@ -211,7 +246,29 @@ router.get('/:cinemaId/delete', (req, res) => {
         res.redirect('/cinema')
     })
     .catch(err => {
-        res.send(err.message)
+        req.session.error = err.message
+        res.redirect('back')
+    })
+})
+
+// delete all screenings
+router.get('/:cinemaId/deleteAllScreenings', (req, res) => {
+    const { params } = req
+    Promise.all([Model.Screening.destroy({
+        truncate: true
+    }),
+    Model.Ticket.destroy({
+        where: {
+            CinemaId: params.cinemaId
+        },
+        truncate: true
+    })])
+    .then(() => {
+        res.redirect(`/cinema/${params.cinemaId}`)
+    })
+    .catch(err => {
+        req.session.error = err.message
+        res.redirect('back')
     })
 })
 

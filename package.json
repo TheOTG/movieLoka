@@ -18,9 +18,15 @@
   },
   "homepage": "https://github.com/TheOTG/movieLoka#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.4",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "googleapis": "^37.2.0",
+    "omdb": "^0.8.0",
     "pg": "^7.8.1",
-    "sequelize": "^4.42.0"
+    "request": "^2.88.0",
+    "sequelize": "^4.42.0",
+    "youtube-node": "^1.3.3"
   }
 }

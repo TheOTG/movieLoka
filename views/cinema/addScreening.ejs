@@ -7,22 +7,22 @@
     <title>Document</title>
 </head>
 <body>
+        <%include ../../partials/login/login.ejs%>
     <a href="/cinema/<%=cinema.id%>">back</a>
     <center>
         <h1>Add Screening <%=cinema.name%></h1>
-        <%=error%>
         <form method="POST">
             <select name="movieName">
                 <%movies.forEach(movie => {%>
-                    <option><%=movie.id%>. <%=movie.name%></option>
+                    <option><%=movie.id%>. <%=movie.title%></option>
                 <%})%>
             </select>
             <br><br>
-            Time:
+            Time:<br>
             <input type="time" name="time">
             <br><br>
-            Seat number:
-            <input type="number" name="seatNumber">
+            Number of seats:<br>
+            <input type="number" name="totalSeats">
             <br><br>
             <input type="submit" value="Submit">
         </form>

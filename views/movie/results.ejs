@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <%include ../../partials/login/login.ejs%>
+    <a href="/movie/search">Search Again!</a>
+    <h1>Search result</h1>
+    <%if(data['Search'] !== undefined) {%>
+        <table border = "2" cellpadding="5">
+        <tr>
+            <th>Year</th>
+            <th>Name</th>
+            <th>Cover</th>
+            <th>IMDB Link</th>
+            <%if(adminStatus === true) {%>
+            <th>Options</th>
+            <%}%>
+        </tr>
+        <% data['Search'].forEach(function(movie){ %>
+        <tr>
+            <% var imdb_url = 'https://www.imdb.com/title/' + movie['imdbID'] %>
+            <td><%= movie['Year'] %></td>
+            <td><%= movie['Title'] %></td>
+            <td><img src="<%= movie['Poster'] %>" alt=""></td>
+            <td><a href="<%= imdb_url %>">View on IMDB</a></td>
+            <%if(adminStatus === true) {%>
+            <td>
+                <form method="POST">
+                    <input type="hidden" name="Title" value="<%=movie.Title%>">
+                    <input type="submit" value="Add To Database">
+                </form>
+            </td>
+            <%}%>
+        </tr>
+	  <% }) %>
+    </table>
+    <%} else {%>
+        <h2>No result found</h2>
+    <%}%>
+	<br/>
+</body>
+</html>
