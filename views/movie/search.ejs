@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <%if(adminStatus === true) {%>
         <%include ../../partials/login/login.ejs%>
     <a href="/movie">back</a>
     <h1>Search For a Movie</h1>
@@ -14,6 +15,7 @@
 	<form action="/movie/results" method="get">
 	    <input type="text" name="search" placeholder="search term">
 	    <input type="submit">
-	</form>
+    </form>
+    <%}%>
 </body>
 </html>

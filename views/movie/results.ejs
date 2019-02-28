@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <%if(adminStatus === true) {%>
         <%include ../../partials/login/login.ejs%>
     <a href="/movie/search">Search Again!</a>
     <h1>Search result</h1>
@@ -42,6 +43,7 @@
     <%} else {%>
         <h2>No result found</h2>
     <%}%>
-	<br/>
+    <br/>
+    <%}%>
 </body>
 </html>
