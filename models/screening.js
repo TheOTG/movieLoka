@@ -1,9 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Screening = sequelize.define('Screening', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     MovieId: DataTypes.INTEGER,
     CinemaId: DataTypes.INTEGER,
-    time: DataTypes.DATE,
+    time: DataTypes.STRING,
     seatNumber: {
       type: DataTypes.INTEGER,
       validate: {

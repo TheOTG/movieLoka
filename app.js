@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const Model = require('./models')
 
 app.set('view engine', 'ejs')
 app.use(express.json())
