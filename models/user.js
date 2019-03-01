@@ -14,6 +14,20 @@ module.exports = (sequelize, DataTypes) => {
         len: {
           args: [4, 10],
           msg: 'Username must be between 4 to 10 characters'
+        },
+        isUnique: function(value) {
+          return User.findOne({
+            where: {
+              username: value,
+              id: {
+                [sequelize.Op.ne]: this.id
+              }
+            }
+          }).then(data => {
+            if(data !== null) {
+              throw new Error(`Username has been used`)
+            }
+          })
         }
       }
     },
@@ -57,7 +71,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     hooks: {
-      
+      beforeCreate: (user, options) => {
+        user.email = user.email.toLowerCase()
+        const bcrypt = require('bcrypt')
+        const saltRounds = 10
+        user.password = bcrypt.hashSync(user.password, saltRounds)
+      },
+      beforeValidate: (user, options) => {
+        user.email = user.email.toLowerCase()
+      }
     }
   });
   User.associate = function(models) {
