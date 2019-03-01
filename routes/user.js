@@ -21,17 +21,17 @@ router.get('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
     const { body } = req
+    const bcrypt = require('bcrypt')
     Model.User.findOne({
         where: {
-            username: body.username,
-            password: body.password
+            username: body.username
         }
     })
     .then(data => {
-        if(data === null) {
+        if(bcrypt.compareSync(body.password, data.password) === false) {
             req.session.error = 'Wrong username / password'
         } else {
-            req.session.error = null
+            // req.session.error = null
             req.session.isLogin = true
             req.session.isAdmin = data.isAdmin === true ? true : false
             req.session.user = data.username
