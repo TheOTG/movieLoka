@@ -1,7 +1,7 @@
 module.exports = function(seatNum) {
     let row = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
     let temp
-    const divisor = 7
+    const divisor = 20
     if(seatNum%divisor === 0) {
         temp = divisor
     } else {

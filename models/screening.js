@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: `Minimum 20 seats!`
         },
         max: {
-          args: 80,
-          msg: `Maximum 80 seats!`
+          args: 200,
+          msg: `Maximum 200 seats!`
         }
       }
     }
