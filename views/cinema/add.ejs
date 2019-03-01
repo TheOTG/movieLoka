@@ -5,15 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+    body{
+            background-color:#334559;
+            margin: 0px;
+               
+            }
+            nav{
+                height: 50px;
+                width: 100%;
+               
+                display: block;
+                background-color: black;
+                color: #fafafa;
+                
+            }
+            nav .hello{
+                float: left;
+                padding: 20px;
+                display: block;
+                float:right;
+                margin:5px;
+            }
+            nav a{
+                color: wheat;
+            }
+            
+            
+            </style>
 </head>
-<body>
-        <%include ../../partials/login/login.ejs%>
+<body><nav><%include ../../partials/login/login.ejs%></nav>
+       
     <a href="/cinema">back</a>
     <center>
         <h2>Add Cinema</h2>
         <form method="POST">
             Name:<br>
-            <input type="text" name="name">
+            <input type="text"  name="name">
             <br><br>
             Logo URL:<br>
             <input type="logo" name="logo">

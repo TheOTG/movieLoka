@@ -4,19 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Show Ticket</title>
+    <style>
+           body{
+                background-color:#334559;
+                margin: 0px;
+               
+            }
+            nav{
+                height: 50px;
+                width: 100%;
+               
+                display: block;
+                background-color: black;
+                color: #fafafa;
+                
+            }
+            nav a{
+                color: wheat;
+            }
+            nav .hello{
+                float: left;
+                padding: 20px;
+                display: block;
+                float:right;
+                margin:5px;
+            }
+        container{
+            height: auto;
+            width: 290px;
+            padding: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+        #tiket {
+            height: 290px;
+            widows: 290px;
+            margin: 0px;
+           
+            display: block;
+            background-color:#fbc531;
+        }
+
+        #cinema {
+            height: 30px;
+            display: block;
+            border-bottom: 2px solid;
+            padding-right:10px;
+            text-align: right;
+            font-size: 23px;
+        }
+        #judul{
+            font-size: 30px;
+            font-weight: bold;
+            display: block;
+            padding: 3px;
+            
+        }
+        #time{
+            
+            font-size: 15px;
+            margin-left: 10px;
+            margin-bottom: 0px;
+            margin-top: 30px;
+            
+        }
+        #time .time{
+            display: inline;
+            
+            
+            font-size: 25px;
+            font-weight: bold;
+        }
+        #seat{
+            display :inline-block;
+            font-size: 100px;
+            font-weight: bold;
+            float:right;
+            margin-bottom: 30px;
+            }
+         #footer{
+                height: 30px;
+            display: block;
+            border-top: 2px solid;
+            padding-right:10px;
+            text-align: right;
+            font-size: 23px;
+                
+
+            }
+
+           
+    </style>
 </head>
 <body>
-        <%include ../../partials/login/login.ejs%>
-    <center>
-        <%seats.forEach(seat => {%>
-            Ticket<br>
-            <%=movie.title%><br>
-            <%=cinema.name%><br>
-            <%=screening.time%><br>
-            <%=seatRow(seat.seatNum)%><br>
-            <br>
-        <%})%>
-    </center>
+      <nav><div class="hello"> <%include ../../partials/login/login.ejs%></div> </nav> 
+    <container>
+            <%seats.forEach(seat => {%>
+            <div id="tiket">
+                <div id="cinema">
+                        <%=cinema.name%>
+                </div>
+                <div id="judul">
+                        <%=movie.title%>
+                </div>
+                <div id="time">
+                  time :  <div class="time"><%=screening.time%></div> 
+                </div>
+
+               
+                <div id="seat"> <%=seatRow(seat.seatNum)%></div>
+
+                </div>
+                <div id="footer"> </div>
+                <%})%>
+               
+      
+      
+                
+                
+                
+    </container>
+  
+    
 </body>
 </html>

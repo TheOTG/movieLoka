@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "postgres",
-    "database": "movieLoka",
+    "password": 123456,
+    "database": "movieLoka2",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
