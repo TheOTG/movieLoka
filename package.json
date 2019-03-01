@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/TheOTG/movieLoka#readme",
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "cookie-parser": "^1.4.4",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
