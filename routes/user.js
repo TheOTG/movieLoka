@@ -8,7 +8,8 @@ router.get('/register', (req, res) => {
     Model.User.create({
         username: body.username,
         password: body.password,
-        email: body.email
+        email: body.email,
+        isAdmin: body.isAdmin
     })
     .then(() => {
         res.redirect('/')
