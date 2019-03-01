@@ -5,9 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+           body{
+                background-color:#334559;
+                margin: 0px;
+               
+            }
+            nav{
+                height: 50px;
+                width: 100%;
+               
+                display: block;
+                background-color: black;
+                color: #fafafa;
+                
+            }
+            nav .hello{
+                float: left;
+                padding: 20px;
+                display: block;
+                float:right;
+                margin:5px;
+            }</style>
 </head>
 <body>
-        <%include ../../partials/login/login.ejs%>
+        <nav><div class="hello" ><%include ../../partials/login/login.ejs%></div></nav>
     <a href="/cinema/<%=screenings[0].CinemaId%>">back</a>
     <br>
         
@@ -25,7 +47,7 @@
             </tr>
             <tr>
                 <td align="left">
-                    <div style="width: 800px">
+                    <div style="width: 800px; background-color: #dcdde1;">
                         <h2><%=movie.title%></h2>
                         Rating: <%=movie.rating%>
                         <br><br>
@@ -35,7 +57,7 @@
             </tr>
             <tr>
                 <td align="left">
-                    <div>
+                    <div style=" background-color: #dcdde1;">
                         Show Time:
                         <%screenings.forEach(screening => {%>
                             <a href="<%=movie.id%>/bookSeat/<%=screening.id%>" style="padding-left: 15px;"><%=screening.time%></a>
