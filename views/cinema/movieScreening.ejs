@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+           body{
+                background-color:#334559;
+                margin: 0px;
+               
+            }
+            nav{
+                height: 50px;
+                width: 100%;
+               
+                display: block;
+                background-color: black;
+                color: #fafafa;
+                
+            }
+            nav a{
+                color: wheat;
+            }
+            nav .hello{
+                float: left;
+                padding: 20px;
+                display: block;
+                float:right;
+                margin:5px;
+            }</style>
+</head>
+<body>
+        <nav><div class="hello" ><%include ../../partials/login/login.ejs%></div></nav>
+    <a href="/cinema/<%=screenings[0].CinemaId%>">back</a>
+    <br>
+        
+        <center>
+        <table cellpadding="5">
+            <tr>
+                <td rowspan="4" valign="top">
+                    <img src="<%=movie.image%>" width ="300" height="400" style="padding-right: 10px;">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <iframe style="position:relative;" width="560" height="315" src="<%=movie.trailer%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <div style="width: 540px; background-color: #dcdde1; padding: 10px;">
+                        <h2><%=movie.title%></h2>
+                        Rating: <%=movie.rating%>
+                        <br><br>
+                        <%=movie.synopsis%>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <div style=" background-color: #dcdde1;">
+                        Show Time:
+                        <%screenings.forEach(screening => {%>
+                            <a href="<%=movie.id%>/bookSeat/<%=screening.id%>" style="padding-left: 15px;"><%=screening.time%></a>
+                        <%})%>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>

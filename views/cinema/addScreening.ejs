@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+           body{
+                background-color:#334559;
+                margin: 0px;
+               
+            }
+            nav{
+                height: 50px;
+                width: 100%;
+               
+                display: block;
+                background-color: black;
+                color: #fafafa;
+                
+            }
+            nav a{
+                color: wheat;
+            }
+            nav .hello{
+                float: left;
+                padding: 20px;
+                display: block;
+                float:right;
+                margin:5px;
+            }</style>
+</head>
+<body>
+        <nav><div class="hello" ><%include ../../partials/login/login.ejs%></div></nav>
+    <a href="/cinema/<%=cinema.id%>">back</a>
+    <center>
+        <h1>Add Screening <%=cinema.name%></h1>
+        <form method="POST">
+            <select name="movieName">
+                <%movies.forEach(movie => {%>
+                    <option><%=movie.id%>. <%=movie.title%></option>
+                <%})%>
+            </select>
+            <br><br>
+            Time:<br>
+            <input type="time" name="time">
+            <br><br>
+            Number of seats:<br>
+            <input type="number" name="totalSeats">
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </center>
+</body>
+</html>

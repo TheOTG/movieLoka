@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            body{
+                 background-color:#334559;
+                 margin: 0px;
+                
+             }
+             nav{
+                 height: 50px;
+                 width: 100%;
+                
+                 display: block;
+                 background-color: black;
+                 color: #fafafa;
+                 
+             }
+             nav a{
+                color: wheat;
+            }
+             nav .hello{
+                 float: left;
+                 padding: 20px;
+                 display: block;
+                 float:right;
+                 margin:5px;
+             }</style>
+</head>
+<body>
+        <nav><div class="hello" ><%include ../../partials/login/login.ejs%></div></nav>
+       
+    <a href="/cinema">back</a>
+    <br>
+    <%if(adminStatus === true) {%>
+        <a href="/cinema/<%=data.id%>/deleteAllScreenings" onclick="return confirm('delete this movie?')">delete all now showing</a>
+    <%}%>
+    
+    <center>
+        <img src="<%=data.logo%>" width="150" height="70">
+        <%if(adminStatus === true) {%>
+            <h2><a href="<%=data.id%>/addScreening">add screening</a></h2>
+        <%}%>
+        
+        <h1>Now Showing</h1>
+        <div style="width: 830px;">
+            <%if(data) {%>
+                <%data.Movies.forEach(movie => {%>
+                    <a href="<%=data.id%>/movie/<%=movie.id%>"><img src="<%=movie.image%>" width="200" height="250"></a>
+                <%})%>
+            <%}%>
+        </div>
+    </center>
+</body>
+</html>

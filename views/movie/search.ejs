@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      
+        
+    input[type=text] {
+  width: 200px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  height: 50px;;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+  width: 400px;
+}
+
+input[type=submit]{
+    height: 55px;
+    border: none;
+
+   
+} </style>
+</head>
+<body>
+    <%if(adminStatus === true) {%>
+        <%include ../../partials/login/login.ejs%>
+    <a href="/movie">back</a>
+    <center>
+    <h1>Search For a Movie</h1>
+
+    <form action="/movie/results" method="get">
+        <input type="text" name="search" placeholder="Search..">
+	   
+	    <input type="submit">
+    </form>
+</center>
+    <%}%>
+</body>
+</html>
